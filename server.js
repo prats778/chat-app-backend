@@ -11,7 +11,18 @@
 
 var admin = require("firebase-admin");
 
-var serviceAccount = require("D:\\Docs(D)\\zTemp\\prats\\whatsapp-clone-62559-firebase-adminsdk-s0giw-af117b8e17.json");
+var serviceAccount = {
+  "type": "service_account",
+  "project_id": "whatsapp-clone-62559",
+  "private_key_id": "26db834f25f5de17e68fd350c2e606ec1b7c4908",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDHuqDP08Gv6l2h\nMKci3bzazsJMX5kUtRbtsR61c7n06LhAh4VQaKk1yNateVV/uv2MDwIjBdtXwBh2\nFL2c2nDn88YqrZKeF5TFEYZGB0S+i7oQlP7xKvHI81avp5RY7N+gRFdHTt3dz0Cf\n470oIWDbb550X3GpIvRrlTSAWWTQN+esKK9yJGJVPhelGwT67xf1gUggfKJgk3p0\ncV13njDMsyTtmIqBwBmHVTikHqs8a+YVbVTRtE+5zxlcRossLiKklcRCSpeOtFHR\nyTXNKESlAt5dNin81vRZpTxppPeBsoA3K07vxdXYMx3+kvvsf670J4dL2d5ky0vX\ndimMRUfnAgMBAAECggEAMSTJG8n5Tu0mU5qSjWAs71PPeBZPpso2FY8uxKvwdgPr\nDimqUlImTG8Z73463N5oM5Wfy3lN8qX3/tn0m8sd29zeBjNGL7MSrni05rc0IYRk\n6F6Y6kNMUcsaKcdcl5LVJWybYxbTPZgYyR6ytNSdrfCldvHjGCBbLrt8OxaD2T1w\njscj98aHtVAc1cwr3IcaYKQBD2L3Bm5Y6x4nQf9s2HMvKqEBOxPqqBL5g8oe620W\nBfXXtEDlVcM3oOay9AAH5tpUlAkE/uR4ZirXchyFy8c3092wb6gOzZSUYecOqGax\nXQ/OOdDNbR/1ZAe11BDkNTavDmTNsXPBfrgCs65RnQKBgQD17/9dvkZR0oRXGkC8\n0YMmBjgULxH05FJ1AJnCYy+uJRBD2F+lxgt37Agf11evz9C0KewREZNasWk2qMC+\nvkKyVIdAJpmgkfytu2uPT9okY+sdRe2kFQEop4CclOMmZVvuO28vYo0VBsdhWlgr\nkwcpiMW0vHmlqIbOjz05BAXb5QKBgQDP5qIScrbqc6F//n9aQbYyN/Uz24IWZGUq\nCcDRicnJ9iXftm9bRitN/6PY1VsWzP59LUl/2oEW9tCoZY2QYJGTv6ZRhembpiYf\nKOmZTDX1ATOjSpWqR12srlGl1RFP9NekQIE2dUHYk6zNYeR4Ki6j6iI2jvcf5OjZ\nWjOJBWTP2wKBgQCqoRkeU+37xL/Wors5hW6lSflMX5/otSRUUtda22/wNXzEZXFu\n1SmNyS+Vz9ThgKA+7zr+WKBQcvgZWRlo/R3PFgBETMOXeNHDQ14Lrw4c40nzJFoM\n1hnYt+XuPQof0IDol0m7qXdSmEJqU8EKclasxVzN2VnYykTFOPH0Bct+1QKBgQCY\nBxs1SlWgFHZg1oXiRnMpPeo8xaPXJAsmNoOdtpis6ya+9PVxVVqNawcxpLM7dSQT\n/W3l5K7JUCs9OSXQEg3icR76Nmahv1nZJ13LEAPU6dAM9JmFLzK896wVDD3grjaS\nkejrHcvMyBBxD8i2ZoI8sxXZt6nW1NnBN0jARgV2SQKBgQCKug4NwAnsYRZ8q+Tr\nkXo3rrYlsHneHhjS07tGbMdO9RznZrAFprWSdlnOXFPnHxCxIq642Tgtb48EU6wQ\nUb1BT9l7OPXqyE0YgmyahFz6YE6r+cKhnf2PAd4oV+UqXMGIpd8K0gn4i01bjLvP\nS/m8l6TkSUi8S7CpdgPF/7M1Xg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-s0giw@whatsapp-clone-62559.iam.gserviceaccount.com",
+  "client_id": "100556298113453890404",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-s0giw%40whatsapp-clone-62559.iam.gserviceaccount.com"
+};
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -50,6 +61,10 @@ const port = 8080
 app.use(express.json());
 app.use(express.static('public'));
 app.use(cors());
+
+app.get('/',(req,res)=>{
+  res.send("hello"); 
+});
 
 const http= require('http').Server(app);
 const io = require("socket.io")(http,{
@@ -234,18 +249,17 @@ http.listen(8080, () => {
   console.log('listening on *:8080');
 });
 
-app.get('/',(req,res)=>{
-    res.send("hello"); 
-});
-app.get('/get',(req,res)=>{
-    usersRef.orderByChild('first_name').on('value', snapshot => {
-        snapshot.forEach((data) => {
-            console.log('The ' + data.key + 'holds ' + data.val().last_name);
-            if(data.key==='119cs0174')
-                res.send(data);
-          });        
-    });  
-});
+
+
+// app.get('/get',(req,res)=>{
+//     usersRef.orderByChild('first_name').on('value', snapshot => {
+//         snapshot.forEach((data) => {
+//             console.log('The ' + data.key + 'holds ' + data.val().last_name);
+//             if(data.key==='119cs0174')
+//                 res.send(data);
+//           });        
+//     });  
+// });
 app.post('/save_chat',(req,res)=>{
     const user_id = req.body.user_id;
     const recp=req.body.recp;
