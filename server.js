@@ -1,13 +1,4 @@
 //firebase connect
-// var admin = require("firebase-admin");
-
-// var serviceAccount = require("D:\\Docs(D)\\zTemp\\prats\\p2p-chat-app-683b7-firebase-adminsdk-k0c5j-5bd436baea.json");
-
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: "https://p2p-chat-app-683b7-default-rtdb.firebaseio.com"
-// });
-
 
 var admin = require("firebase-admin");
 
@@ -39,18 +30,6 @@ usersRef.on('child_added', snapshot => {
     console.log('New data has been added to the database !');
 });
 
-// usersRef.on('child_changed', snapshot => {
-//     console.log('Data has been changed !');
-// });
-
-// usersRef.on('child_removed', snapshot => {
-//     console.log('Data has been removed !');
-// });
-
-// usersRef.on('value', snapshot => {
-
-//     console.log('An event occured on the database !',snapshot);
-// });
 
 const express = require('express');
 const cors=require('cors');
@@ -61,10 +40,6 @@ const port =  process.env.PORT || 8080
 app.use(express.json());
 app.use(express.static('public'));
 app.use(cors());
-
-app.get('/',(req,res)=>{
-  res.send("hello"); 
-});
 
 const http= require('http').Server(app);
 const io = require("socket.io")(http,{
@@ -245,21 +220,15 @@ io.on('connection', socket => {
   })
 });
 
-http.listen(8080, () => {
+http.listen(port, () => {
   console.log('listening on *:8080');
 });
 
 
+app.get('/',(req,res)=>{
+  res.send("hello"); 
+});
 
-// app.get('/get',(req,res)=>{
-//     usersRef.orderByChild('first_name').on('value', snapshot => {
-//         snapshot.forEach((data) => {
-//             console.log('The ' + data.key + 'holds ' + data.val().last_name);
-//             if(data.key==='119cs0174')
-//                 res.send(data);
-//           });        
-//     });  
-// });
 app.post('/save_chat',(req,res)=>{
     const user_id = req.body.user_id;
     const recp=req.body.recp;
