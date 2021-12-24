@@ -56,7 +56,7 @@ const express = require('express');
 const cors=require('cors');
 const app = express();
 const host = process.env.HOST || '127.0.0.1'
-const port = 8080
+const port =  process.env.PORT || 8080
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -69,7 +69,7 @@ app.get('/',(req,res)=>{
 const http= require('http').Server(app);
 const io = require("socket.io")(http,{
     cors: {
-        origin: "http://localhost:8080",
+        origin: "https://pacific-bastion-46538.herokuapp.com/",
         methods: ["GET", "POST"],
         allowedHeaders: ["my-custom-header"],
         credentials: true        
